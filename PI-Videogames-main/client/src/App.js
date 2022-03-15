@@ -1,4 +1,8 @@
-import './App.css';
+import "./App.css";
+
+import Form from "./components/Form";
+import Games from "./components/Games";
+import Game from "./components/Games/Game";
 
 function App() {
   return (
