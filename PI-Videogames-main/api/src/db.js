@@ -5,21 +5,22 @@ const path = require("path");
 const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
 
 const sequelize = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/videogames`,
+  // `postgres://${DB_USER}:${DB_PASSWORD}@localhost/videogames`,  <- no jala
+  `postgres://postgres:password@localhost:5432/videogames`,
   {
     logging: false, // set to console.log to see the raw SQL queries
     native: false, // lets Sequelize know we can use pg-native for ~30% more speed
   }
 );
 
-// sequelize
-//   .authenticate()
-//   .then(() => {
-//     console.log("Conectao");
-//   })
-//   .catch((err) => {
-//     console.error("No se pudo", err);
-//   });
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log("Success");
+  })
+  .catch((err) => {
+    console.error("Sequelize did not connected to the db", err);
+  });
 
 const basename = path.basename(__filename);
 
@@ -51,9 +52,9 @@ const { Videogame, Genre } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
-Videogame.belongsToMany(Genre, { through: "Videogame_genre" });
+Videogame.belongsToMany(Genre, { through: "game_genre" });
 
-Genre.belongsToMany(Videogame, { through: "Videogame_genre" });
+Genre.belongsToMany(Videogame, { through: "game_genre" });
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

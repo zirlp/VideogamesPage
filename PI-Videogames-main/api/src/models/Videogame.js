@@ -1,4 +1,4 @@
-const { DataTypes, UUIDV1, UUIDV4 } = require("sequelize");
+const { DataTypes, UUIDV4 } = require("sequelize");
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
 
@@ -16,11 +16,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
-    releaseDate: {
+    released: {
       type: DataTypes.DATEONLY,
       allowNull: false,
     },
@@ -28,9 +24,9 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    platforms: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
+    // platforms: {
+    //   type: DataTypes.STRING,
+    //   allowNull: false,
+    // },
   });
 };
