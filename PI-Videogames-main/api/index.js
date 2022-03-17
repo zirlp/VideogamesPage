@@ -23,38 +23,83 @@ const axios = require("axios");
 const API_KEY = "49ddff1dc19f434dbf0139f7c1eab75a";
 const { Genre } = require("./src/db.js");
 
-function getData() {
-  axios
-    .get(`https://api.rawg.io/api/games?key=${API_KEY}`, {
-      params: { page: 1 },
-    })
-    .then((res) => {
-      const allGenres = new Set();
-      res.data.results.map((game) => {
-        game.genres.map((genre) => {
-          allGenres.add(genre.name);
-          // if (!arr.includes(genre.name)) {
-          //   arr.push(genre.name);
-          // }
-        });
-      });
-      // console.log(allGenres);
+async function getData() {
+  const allGenres = new Set();
 
-      // .then((r) => {
-      //   r.forEach((genre) => {
-      //     console.log(genre.name);
-      //   });
-      // });
+  const page1 = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`);
 
-      // try {
-      //   await Genre.create({
-      //     id: game.genre.id,
-      //     name: game.genre.name,
-      //   });
-      // } catch (error) {
-      //   console.log(error);
-      // }
+  await page1.data.results.map((game) => {
+    game.genres.map((genre) => {
+      allGenres.add(`${genre.name}`);
     });
+  });
+
+  try {
+    for (let i = 0; i < [...allGenres].length; i++) {
+      await Genre.create({
+        name: [...allGenres][i],
+      });
+    }
+  } catch (error) {
+    return {
+      message: "lol nope",
+    };
+  }
+
+  // await axios
+  //   .get(`https://api.rawg.io/api/games?key=${API_KEY}`, {
+  //     params: { page: 2 },
+  //   })
+  //   .then((res) => {
+  //     res.data.results.map((game) => {
+  //       game.genres.map((genre) => {
+  //         allGenres.add(genre.name);
+  //       });
+  //     });
+  //   });
+  // await axios
+  //   .get(`https://api.rawg.io/api/games?key=${API_KEY}`, {
+  //     params: { page: 3 },
+  //   })
+  //   .then((res) => {
+  //     res.data.results.map((game) => {
+  //       game.genres.map((genre) => {
+  //         allGenres.add(genre.name);
+  //       });
+  //     });
+  //   });
+  // await axios
+  //   .get(`https://api.rawg.io/api/games?key=${API_KEY}`, {
+  //     params: { page: 4 },
+  //   })
+  //   .then((res) => {
+  //     res.data.results.map((game) => {
+  //       game.genres.map((genre) => {
+  //         allGenres.add(genre.name);
+  //       });
+  //     });
+  //   });
+  // await axios
+  //   .get(`https://api.rawg.io/api/games?key=${API_KEY}`, {
+  //     params: { page: 5 },
+  //   })
+  //   .then((res) => {
+  //     res.data.results.map((game) => {
+  //       game.genres.map((genre) => {
+  //         allGenres.add(genre.name);
+  //       });
+  //     });
+  //   })
+  //   .finally((all) => {
+  //     // console.log(allGenres);
+  //     allGenres.forEach((o) => {
+  //       {
+  //         name: `${o}`;
+  //       }
+  //     });
+  //     console.log(allGenres);
+  //     // Genre.bulkCreate([...allGenres]).then(console.log("simon"));
+  //   });
 }
 getData();
 
@@ -68,3 +113,18 @@ conn.sync({ force: true }).then(() => {
 });
 
 //create
+
+// try {
+//   await Genre.create({
+//     id: game.genre.id,
+//     name: game.genre.name,
+//   });
+// } catch (error) {
+//   console.log(error);
+// }
+
+//includes
+
+// if (!allGenres.includes(genre.name)) {
+//   allGenres.push(genre.name);
+// }

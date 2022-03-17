@@ -3,7 +3,7 @@ const router = Router();
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const genres = require("./genres.js");
-const videogames = require("./videogames.js");
+const videogames = require("./videogames");
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
