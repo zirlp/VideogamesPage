@@ -1,15 +1,15 @@
-const { DataTypes, UUIDV4 } = require("sequelize");
+const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define(
     "genre",
     {
-      id: { type: DataTypes.UUID, primaryKey: true, defaultValue: UUIDV4 },
+      //el id se genera automático por sus filas en la db
       name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
     },
-    { timestamps: true, createdAt: false, updatedAt: false }
+    { timestamps: false }
   );
 };

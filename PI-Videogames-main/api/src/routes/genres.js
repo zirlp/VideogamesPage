@@ -2,17 +2,19 @@ const { Router } = require("express");
 const router = Router();
 const { Genre } = require("../db");
 
-router.get("/", async (req, res) => {
-  // esto solo busca en la db
+router.get("/", getGenres);
 
+async function getGenres(req, res) {
+  // esto solo busca en la db, obviamente
+  //
   const genres = await Genre.findAll();
 
   if (!genres.length) {
-    return res.status(400).send({
-      message: "No genres were found",
+    return res.status(404).send({
+      message: "No genres on the data base",
     });
   }
   res.send(genres);
-});
+}
 
 module.exports = router;
