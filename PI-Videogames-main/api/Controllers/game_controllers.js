@@ -38,15 +38,15 @@ async function getGameById(req, res) {
                   .get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
                   .then((e) => {
                     //prettier-ignore
-                    const {name, description, released, rating, platforms, image, genres, } = e.data;
+                    const {name, description_raw, released, rating, platforms, background_image, genres, } = e.data;
                     const gameDetail = {
                       id,
                       name,
-                      description,
+                      description_raw,
                       released,
                       rating,
                       platforms: platforms.map((p) => p.platform.name),
-                      image,
+                      background_image,
                       genres: genres.map((g) => g.name),
                     };
                     res.send(gameDetail);

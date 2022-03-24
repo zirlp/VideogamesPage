@@ -1,0 +1,36 @@
+.navbar {
+  width: 100%;
+  background-color: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 1rem;
+  z-index: 50;
+}
+
+.navbar_logo {
+  color: aliceblue;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.navbar_addGame {
+  display: flex;
+  align-items: flex-end;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+}
+
+.addGame_Icon:hover {
+  font-size: larger;
+  color: aqua;
+  background: red;
+  padding-right: 1.5rem;
+}
+
+.searchBar {
+  color: beige;
+  display: flex;
+  align-items: center;
+}

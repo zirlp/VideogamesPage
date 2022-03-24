@@ -1,28 +1,24 @@
 import "./App.css";
 import React from "react";
-import { browserRouter, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import form from "./components/Form/form.js";
-import games from "./components/Games/games.js";
-import game from "./components/Games/Game/game.js";
-import search from "./components/Search";
-import home from "./components/Home";
+// screens -----------------------
+import LandingPage from "./components/Landing/Landing.js";
+import Home from "./components/Home/Home.js";
+import Form from "./components/Form/Form.js";
+import GameDetail from "./components/GameDetail/GameDetail";
 
 const App = () => (
-  //aqui el use state
-  //aqui el dispatch
-  //aquí va el querido useEffect
-
-  <BrowserRouter>
-    <div className="App">
-      <Route path="/">
-        <h1>Henry Videogames</h1>
-      </Route>
-      <Route path="/home" element={games} />
-      <Route path="/videogames/add" component={form} />
-      <Route path="/videogames/:gameid" element={game} />
-    </div>
-  </BrowserRouter>
+  <Router>
+    <main>
+      <Routes>
+        <Route exact path="/" element={<LandingPage />} />
+        <Route exact path="/home" element={<Home />} />
+        <Route exact path="/videogames/add" element={<Form />} />
+        <Route exact path="/videogames/:id" element={<GameDetail />} />
+      </Routes>
+    </main>
+  </Router>
 );
 
 export default App;
