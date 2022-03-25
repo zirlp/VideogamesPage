@@ -1,3 +1,54 @@
-.gameDetail {
-  font-family: Arial, Helvetica, sans-serif;
+.card-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 3px;
+}
+
+.card {
+  opacity: 90%;
+  position: relative;
+  background: rgba(80, 77, 77, 0.787);
+  max-width: 140px;
+  height: auto;
+  margin: 25px;
+  box-shadow: 0 5px 25px rgb(1 1 1/ 20%);
+  border-radius: 10px;
+  overflow: hidden;
+  max-height: 200px;
+}
+
+.image {
+  max-height: 85px;
+}
+
+.card-name {
+  /* position: relative; */
+  color: #222;
+  padding: 0px 8px 0px;
+  font-size: 10px;
+}
+
+.rating {
+  font-size: 10px;
+  /* padding: 0px 8px 0px; */
+  display: flex;
+  justify-content: center;
+  font-weight: bolder;
+}
+
+.genres {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-size: 10px;
+  background-color: grey;
+  opacity: 80%;
+}
+
+.genre {
+  /* background-color: aquamarine; */
+  font-weight: bold;
+  padding: 0px 3px 0px;
 }

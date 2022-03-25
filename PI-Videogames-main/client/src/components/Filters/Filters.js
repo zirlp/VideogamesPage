@@ -1,6 +1,6 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { cleanQuery, filterQuery, gameQuery } from "../../Actions";
+import { filterQuery, removeFilters } from "../../Actions";
 
 const Filters = () => {
   const dispatch = useDispatch();
@@ -17,16 +17,16 @@ const Filters = () => {
   const allPlatformsArray = allGames.map((p) => p.platforms);
   const allPlatforms = [...new Set(allPlatformsArray.flat())];
 
-  const handleInputChange = () => {
+  const handleInputChange = (e) => {
     // dispatch(gameQuery(query));
+
+    if (e.target.value === "byName") allGames.sort();
   };
 
   const filterByPlatform = (plat) => {
     const byPlatform = allGames.filter((game) =>
       game.platforms.includes(plat.target.value)
     );
-    // currentFilter.length
-    //   ? dispatch(filterQuery(currentFilter.concat(byPlatform)))
     dispatch(filterQuery(byPlatform));
   };
 
@@ -34,16 +34,23 @@ const Filters = () => {
     const byGenre = allGames.filter((game) =>
       game.genres.includes(plat.target.value)
     );
-
-    // currentFilter.length
-    //   ? dispatch(filterQuery(currentFilter.concat(byGenre)))
-    //   :
     dispatch(filterQuery(byGenre));
+  };
+
+  const removeFilterButton = () => {
+    if (currentFilter.length)
+      return (
+        <button onClick={() => dispatch(removeFilters())}>
+          "Remove Filters"
+        </button>
+      );
+    return "";
   };
 
   return (
     <div>
       <select onChange={handleInputChange}>
+        <option value={"Order"}>Order by</option>
         <option value={"byName"}>Name</option>
         <option value={"byRating"}>Rating</option>
       </select>
@@ -65,6 +72,8 @@ const Filters = () => {
           </option>
         ))}
       </select>
+
+      <div>{removeFilterButton()}</div>
     </div>
   );
 };

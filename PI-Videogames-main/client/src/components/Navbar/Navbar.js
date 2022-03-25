@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import Searchbar from "../Search/Searchbar.js";
-import Filters from "../Filters/Filters";
 
 const Navbar = () => {
   return (

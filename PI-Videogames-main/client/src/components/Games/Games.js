@@ -36,20 +36,21 @@ const Games = ({ allGames }) => {
   return (
     <div>
       <div>
-        {" "}
-        <Filters />{" "}
+        <Filters />
+      </div>
+      <div className="container">
+        {currentGames.map((e) => (
+          <Game
+            key={e.id}
+            id={e.id}
+            name={e.name}
+            image={e.image}
+            rating={e.rating}
+            genres={e.genres}
+          ></Game>
+        ))}
       </div>
 
-      {currentGames.map((e) => (
-        <Game
-          key={e.id}
-          id={e.id}
-          name={e.name}
-          image={e.image}
-          rating={e.rating}
-          genres={e.genres}
-        ></Game>
-      ))}
       <Pagination
         gamesPerPage={gamesPerPage}
         totalGames={games.length}

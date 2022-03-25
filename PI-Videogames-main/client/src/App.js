@@ -7,6 +7,7 @@ import LandingPage from "./components/Landing/Landing.js";
 import Home from "./components/Home/Home.js";
 import Form from "./components/Form/Form.js";
 import GameDetail from "./components/GameDetail/GameDetail";
+import NotFound from "./components/NotFound/NotFound.js";
 
 const App = () => (
   <Router>
@@ -16,6 +17,7 @@ const App = () => (
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/videogames/add" element={<Form />} />
         <Route exact path="/videogames/:id" element={<GameDetail />} />
+        <Route exact path="/nope" element={<NotFound />} />
       </Routes>
     </main>
   </Router>

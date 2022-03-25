@@ -5,6 +5,8 @@ import {
   GAME_QUERY,
   CLEAN_QUERY,
   FILTER_QUERY,
+  REMOVE_FILTERS,
+  DELETE_GAME,
 } from "./Constants";
 import axios from "axios";
 
@@ -12,7 +14,7 @@ import axios from "axios";
 
 export function getGames() {
   return async function (dispatch) {
-    let request = await axios.get("http://127.0.0.1:3001/");
+    let request = await axios.get("http://127.0.0.1:3001/videogames");
     // const allGames = request.data;
     try {
       return dispatch({ type: GETALL, payload: request.data });
@@ -85,5 +87,25 @@ export function cleanQuery() {
       type: CLEAN_QUERY,
       payload: [],
     });
+  };
+}
+
+export function removeFilters() {
+  return (dispatch) => {
+    return dispatch({
+      type: REMOVE_FILTERS,
+      payload: [],
+    });
+  };
+}
+
+export function deleteGame(id) {
+  return async (dispatch) => {
+    try {
+      await axios.delete(`http://127.0.0.1:3001/videogames/${id}`);
+      return dispatch({ type: DELETE_GAME });
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 }

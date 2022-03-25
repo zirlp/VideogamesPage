@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
 import { getGames, getGenres, addGame } from "../../Actions/index.js";
 import Navbar from "../Navbar/Navbar";
+import { useNavigate } from "react-router-dom";
 
 export function validate(input) {
   let errors = {};
@@ -38,6 +39,7 @@ export function validate(input) {
 }
 
 const Form = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const allGames = useSelector((state) => state.allVideoGames);
   const everyPlatformsArray = allGames.map((p) => p.platforms);
@@ -145,6 +147,7 @@ const Form = () => {
 
   const handleSubmit = (ok) => {
     ok.preventDefault();
+    //cómo condicionar el submit
     dispatch(addGame(input));
     setInput({
       name: "",
@@ -156,8 +159,8 @@ const Form = () => {
       genres: [],
     });
     alert("Game added to db");
+    navigate("/home");
   };
-  //---------------------------------------------------------------
 
   return (
     <div>
@@ -257,6 +260,7 @@ const Form = () => {
           ))}
           {errors.platforms && <p className="danger">{errors.platforms}</p>}
         </div>
+
         <input type={"submit"} />
       </form>
     </div>

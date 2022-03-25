@@ -13,14 +13,21 @@ const Game = ({
 }) => {
   //aquí el estilo de cada carta
   return (
-    <div className="gameDetail">
-      <div>
-        <img src={`${image}`} alt={"game_img"} width="20%" height="15%"></img>
-        <h3>{name}</h3>
-        <h5>{rating}</h5>
-        <h4>{genres}</h4>
+    <div className="card-content">
+      <div className="card">
+        <Link to={`/videogames/${id}`}>
+          <img src={`${image}`} alt={"game_img"} className="image"></img>
+        </Link>
+        <h3 className="card-name">{name}</h3>
+        <p className="rating"> {rating} </p>
+        <div className="genres">
+          {genres.map((g) => (
+            <p className="genre" key={g}>
+              {g}
+            </p>
+          ))}
+        </div>
       </div>
-      <Link to={`/videogames/${id}`}>Game Detail</Link>
     </div>
   );
 };

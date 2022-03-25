@@ -1,6 +1,5 @@
 require("dotenv").config();
-// const { API_KEY } = process.env;
-const API_KEY = "49ddff1dc19f434dbf0139f7c1eab75a";
+const { API_KEY } = process.env;
 const axios = require("axios");
 const { Genre } = require("../src/db.js");
 
@@ -35,6 +34,39 @@ async function loadGenresOnDb() {
 }
 
 async function getGamesFromApi() {
+  // const fetch = await axios.get(
+  //   `https://api.rawg.io/api/games?key=${API_KEY}, ${{
+  //     params: { page_size: 40 },
+  //   }}`
+  // );
+  // const fetch2 = await axios.get(fetch.data.next, {
+  //   params: { page_size: 40 },
+  // });
+  // const fetch3 = await axios.get(fetch2.data.next, {
+  //   params: { page_size: 20 },
+  // });
+
+  // console.log(
+  //   (all = [
+  //     ...fetch.data.results,
+  //     ...fetch2.data.results,
+  //     ...fetch3.data.results,
+  //   ])
+  // );
+
+  // const allGames = all.map((game) => {
+  //   ({
+  //     id: game.id,
+  //     name: game.name,
+  //     released: game.released,
+  //     rating: game.rating,
+  //     platforms: game.platforms.map((platform) => platform.platform.name),
+  //     genres: game.genres.map((genre) => genre.name),
+  //     image: game.background_image,
+  //   });
+  // });
+  // return allGames;
+
   try {
     let page = 1;
     let allGames = [];
@@ -57,7 +89,8 @@ async function getGamesFromApi() {
       );
       page++;
     }
-    return Promise.all(allGames).then((r) => r.flat());
+    // Promise.all(allGames).then((r) => r.flat());
+    return allGames.flat();
   } catch (err) {
     {
       return { message: "No games found in api controller" };

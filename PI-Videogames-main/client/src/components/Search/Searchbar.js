@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { cleanQuery, gameQuery } from "../../Actions";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
   const [query, setQuery] = useState("");
+  const navigate = useNavigate();
 
   const allGames = useSelector((state) => {
     return state.allVideoGames;
@@ -16,8 +18,10 @@ const SearchBar = () => {
     const filterByQuery = allGames.filter((game) =>
       game.name.toLowerCase().includes(query)
     );
-
-    dispatch(gameQuery(filterByQuery));
+    // console.log(filterByQuery);
+    !filterByQuery.length
+      ? navigate("/nope")
+      : dispatch(gameQuery(filterByQuery));
     setQuery("");
   };
 
@@ -26,9 +30,8 @@ const SearchBar = () => {
   });
 
   const goBackButton = () => {
-    if (filteredGames.length) {
+    if (filteredGames.length)
       return <button onClick={handleOnClick}>"Return"</button>;
-    }
     return "";
   };
   const handleOnClick = () => {

@@ -1,0 +1,7 @@
+.homeScreen {
+  background-image: url("../../Images/fondo-juego-nuevo.jpg");
+  /* padding: 10em; */
+  background-repeat: no-repeat;
+  outline: 2px solid black;
+  background-size: cover;
+}

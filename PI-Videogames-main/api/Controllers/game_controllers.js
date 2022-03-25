@@ -1,9 +1,8 @@
+require("dotenv").config();
+const { API_KEY } = process.env;
 const axios = require("axios");
-
 const { Videogame, Genre } = require("../src/db.js");
-const API_KEY = "49ddff1dc19f434dbf0139f7c1eab75a";
-//prettier-ignore
-const { getGamesFromApi } = require("C:/Users/Zirlp/Desktop/Henry/VideogamesPage/PI-Videogames-main/api/Controllers/api_controllers.js");
+const { getGamesFromApi } = require("../Controllers/api_controllers.js");
 
 async function getAllGames(req, res) {
   try {
@@ -95,7 +94,23 @@ async function createGame(req, res) {
         new_game.addGenre(genre);
       });
     });
-    res.status(200).send("The game was added correctly to the db.");
+    res.status(200).send("Game added correctly to the db.");
+  } catch (err) {
+    return res.status(500).send({
+      message: `Error: ${err.message}`,
+    });
+  }
+}
+
+async function deleteGame(req, res) {
+  const { id } = req.params;
+
+  try {
+    Videogame.destroy({
+      where: { id: id },
+    });
+
+    res.status(200).send("Game deleted successfully");
   } catch (err) {
     return res.status(500).send({
       message: `Error: ${err.message}`,
@@ -134,4 +149,5 @@ module.exports = {
   createGame,
   getGamesFromDb,
   getAllGames,
+  deleteGame,
 };

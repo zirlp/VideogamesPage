@@ -1,11 +1,13 @@
 import {
   ADD,
   CLEAN_QUERY,
+  DELETE_GAME,
   FILTER_QUERY,
   GAME_QUERY,
   GETALL,
   GETGENRES,
   GET_GAME_DETAIL,
+  REMOVE_FILTERS,
 } from "../Actions/Constants";
 
 const initState = {
@@ -54,6 +56,17 @@ function reducer(state = initState, action) {
       return {
         ...state,
         gameQuery: action.payload,
+      };
+
+    case REMOVE_FILTERS:
+      return {
+        ...state,
+        filterQuery: action.payload,
+      };
+
+    case DELETE_GAME:
+      return {
+        ...state,
       };
 
     default:
