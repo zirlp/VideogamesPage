@@ -1,11 +1,19 @@
 .navbar {
-  width: 100%;
-  background-color: black;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
+  max-width: 100%;
+  /* background-color: rgba(105, 105, 105, 0.301); */
   padding: 1.5rem 1rem;
   z-index: 50;
+}
+
+.navbar_landing {
+  width: 10vh;
+}
+
+.landing_logo {
+  display: flex;
 }
 
 .navbar_logo {

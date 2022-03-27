@@ -1,7 +1,8 @@
-.container {
-  min-height: 50vh;
+.games_container {
+  /* min-height: 50vh; */
   display: flex;
   flex-direction: row;
-  align-items: center;
+  justify-content: center;
+  /* align-items: center; */
   flex-wrap: wrap;
 }

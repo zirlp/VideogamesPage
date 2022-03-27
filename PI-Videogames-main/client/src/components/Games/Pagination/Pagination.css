@@ -1,14 +1,19 @@
 .pagination {
   display: flex;
+  justify-content: center;
   text-align: center;
-  margin: 30px 30px 60px;
+  margin: 30px 0 60px;
 }
 
 .page-link {
-  display: inline-block;
-  margin: 2px;
+  /* display: inline-block; */
+  color: white;
+  font-weight: 900;
+  font-size: 1.5vh;
+  height: 3vh;
+  width: 3vh;
+  margin: 5px;
   background-color: gray;
-  opacity: 30%;
   border-radius: 3px;
   cursor: pointer;
   transition: 0.4s ease;

@@ -59,34 +59,59 @@ const GameDetail = () => {
 
   return (
     <div>
-      <Navbar />
-      <img src={`${detail.background_image}`} alt=""></img>
-      <h2>{detail.name}</h2>
-      <h5>{detail.released}</h5>
-      <h5>{detail.rating}</h5>
-      <p>{detail.description_raw} </p>
       <div>
-        {"Platforms:"}
-        {platforms.map((platform) => (
-          <Link to={"/home"} key={platform}>
-            <button onClick={platformOnClick} value={platform} key={platform}>
-              {platform}
-            </button>
-          </Link>
-        ))}
+        <Link to={"/home"}>
+          <img
+            className="detail_arrow"
+            src="http://pixelartmaker-data-78746291193.nyc3.digitaloceanspaces.com/image/c0770286e6189a4.png"
+          ></img>
+        </Link>
       </div>
-      <div>
-        {"Genres:"}
-        {genres.map((genre) => (
-          <Link to={"/home"} key={genre}>
-            <button onClick={genreOnClick} value={genre} key={genre}>
-              {genre}
-            </button>
-          </Link>
-        ))}
-      </div>
+      <div className="detail_container">
+        <h2 className="detail_title">{detail.name}</h2>
+        <img
+          className="detail_image"
+          src={`${detail.background_image}`}
+          alt=""
+        ></img>
+        <div className="detail_info">
+          <h5> Release date: {detail.released}</h5>
+          <h5>Rating: {detail.rating}</h5>
+        </div>
 
-      <div> {deleteButton()} </div>
+        <div className="detail_txt">{detail.description_raw} </div>
+        <div className="detail_platContainer">
+          <div>{"Platforms:"} </div>
+          {platforms.map((platform) => (
+            <Link to={"/home"} key={platform}>
+              <button
+                onClick={platformOnClick}
+                value={platform}
+                key={platform}
+                className="detail_platform"
+              >
+                {platform}
+              </button>
+            </Link>
+          ))}
+        </div>
+        <div className="detail_genContainer">
+          <div>{"Genres:"}</div>
+          {genres.map((genre) => (
+            <Link to={"/home"} key={genre}>
+              <button
+                onClick={genreOnClick}
+                value={genre}
+                key={genre}
+                className="detail_genre"
+              >
+                {genre}
+              </button>
+            </Link>
+          ))}
+        </div>
+        <div> {deleteButton()} </div>
+      </div>
     </div>
   );
 };

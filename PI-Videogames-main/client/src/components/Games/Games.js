@@ -38,7 +38,7 @@ const Games = ({ allGames }) => {
       <div>
         <Filters />
       </div>
-      <div className="container">
+      <div className="games_container">
         {currentGames.map((e) => (
           <Game
             key={e.id}

@@ -1,0 +1,24 @@
+.notfound_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  font-family: undertale;
+  font-size: 1.5rem;
+  background-color: black;
+}
+
+.notfound_notfound {
+  position: relative;
+}
+
+.notfound_button {
+  background-color: rgba(255, 0, 0, 0);
+  position: relative;
+  color: #fff;
+  font-family: undertale;
+  font-size: 2rem;
+  border-color: rgba(255, 255, 255, 0);
+  padding: 10px;
+}

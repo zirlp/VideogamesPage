@@ -1,4 +1,5 @@
 import React from "react";
+import "./Styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import { filterQuery, removeFilters } from "../../Actions";
 
@@ -48,15 +49,15 @@ const Filters = () => {
   };
 
   return (
-    <div>
-      <select onChange={handleInputChange}>
-        <option value={"Order"}>Order by</option>
+    <div className="filter_container">
+      <select onChange={handleInputChange} className="filter_name">
+        <option value={"Order"}>ORDER BY</option>
         <option value={"byName"}>Name</option>
         <option value={"byRating"}>Rating</option>
       </select>
 
-      <select onChange={filterByGenre}>
-        <option value={"none"}>By genre</option>
+      <select onChange={filterByGenre} className="filter_genre">
+        <option value={"none"}>FILTER BY GENRE</option>
         {genres.map((genres) => (
           <option value={genres.name} key={genres.name}>
             {genres.name}
@@ -64,8 +65,8 @@ const Filters = () => {
         ))}
       </select>
 
-      <select onChange={filterByPlatform}>
-        <option value={"none"}>By platform</option>
+      <select onChange={filterByPlatform} className="filter_platform">
+        <option value={"none"}>FILTER BY PLATFORM</option>
         {allPlatforms.map((platform) => (
           <option value={platform} key={platform}>
             {platform}
