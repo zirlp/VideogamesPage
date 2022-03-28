@@ -7,3 +7,4 @@ export const FILTER_QUERY = "FILTER_QUERY";
 export const CLEAN_QUERY = "CLEAN_QUERY";
 export const REMOVE_FILTERS = "REMOVE_FILTERS";
 export const DELETE_GAME = "DELETE_GAME";
+export const ORDER = "ORDER";

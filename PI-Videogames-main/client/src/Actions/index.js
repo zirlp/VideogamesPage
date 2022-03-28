@@ -7,6 +7,7 @@ import {
   FILTER_QUERY,
   REMOVE_FILTERS,
   DELETE_GAME,
+  ORDER,
 } from "./Constants";
 import axios from "axios";
 
@@ -60,6 +61,15 @@ export function getGameDetail(id) {
     } catch (error) {
       console.log(error.message);
     }
+  };
+}
+
+export function orderBy(payload) {
+  return (dispatch) => {
+    return dispatch({
+      type: ORDER,
+      payload: payload,
+    });
   };
 }
 

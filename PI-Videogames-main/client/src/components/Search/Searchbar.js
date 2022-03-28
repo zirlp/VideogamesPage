@@ -1,3 +1,4 @@
+import "./Styles.css";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { cleanQuery, gameQuery } from "../../Actions";
@@ -8,9 +9,7 @@ const SearchBar = () => {
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
 
-  const allGames = useSelector((state) => {
-    return state.allVideoGames;
-  });
+  const allGames = useSelector((state) => state.allVideoGames);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -25,9 +24,7 @@ const SearchBar = () => {
     setQuery("");
   };
 
-  const filteredGames = useSelector((state) => {
-    return state.gameQuery;
-  });
+  const filteredGames = useSelector((state) => state.gameQuery);
 
   const goBackButton = () => {
     if (filteredGames.length)
@@ -41,13 +38,14 @@ const SearchBar = () => {
   return (
     <form className="searchBar" onSubmit={submitHandler}>
       <input
+        className="searchbar_input"
         type={"text"}
-        placeholder="Search..."
+        placeholder="SEARCH..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       ></input>
-      <input type={"submit"} value="Go!"></input>
-      <div>{goBackButton()}</div>
+      <input type={"submit"} value="OK" className="searchbar_submit"></input>
+      <div className="searchbar_back">{goBackButton()}</div>
     </form>
   );
 };

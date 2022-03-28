@@ -9,7 +9,11 @@
 }
 
 .navbar_landing {
-  width: 10vh;
+  height: 8vh;
+}
+
+.navbar_home {
+  height: 8vh;
 }
 
 .landing_logo {

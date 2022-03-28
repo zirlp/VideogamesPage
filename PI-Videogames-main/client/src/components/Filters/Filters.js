@@ -1,27 +1,48 @@
 import React from "react";
 import "./Styles.css";
 import { useDispatch, useSelector } from "react-redux";
-import { filterQuery, removeFilters } from "../../Actions";
+import { filterQuery, orderBy, removeFilters } from "../../Actions";
 
 const Filters = () => {
   const dispatch = useDispatch();
-  //   const [query, setQuery] = useState([]);
 
+  const currentOrder = useSelector((state) => state.order);
   const currentFilter = useSelector((state) => state.filterQuery);
   const currentQuery = useSelector((state) => state.gameQuery);
   const genres = useSelector((state) => state.genres);
   var allGames = useSelector((state) => state.allVideoGames);
 
-  if (currentFilter.length) allGames = currentFilter;
+  if (currentOrder.length) allGames = currentOrder;
+  else if (currentFilter.length) allGames = currentFilter;
   else if (currentQuery.length) allGames = currentQuery;
 
   const allPlatformsArray = allGames.map((p) => p.platforms);
   const allPlatforms = [...new Set(allPlatformsArray.flat())];
 
   const handleInputChange = (e) => {
-    // dispatch(gameQuery(query));
-
-    if (e.target.value === "byName") allGames.sort();
+    var sort = [];
+    if (e.target.value === "Rating ▲") {
+      sort = allGames.sort((a, b) => b.rating - a.rating);
+    }
+    if (e.target.value === "Rating ▼") {
+      sort = allGames.sort((a, b) => a.rating - b.rating);
+    }
+    if (e.target.value === "A-Z") {
+      sort = allGames.sort((a, b) => {
+        if (a.name > b.name) return 1;
+        if (b.name > a.name) return -1;
+        return 0;
+      });
+    }
+    if (e.target.value === "Z-A") {
+      sort = allGames.sort((a, b) => {
+        if (a.name < b.name) return 1;
+        if (b.name < a.name) return -1;
+        return 0;
+      });
+    }
+    dispatch(orderBy(sort));
+    dispatch(orderBy([]));
   };
 
   const filterByPlatform = (plat) => {
@@ -41,8 +62,11 @@ const Filters = () => {
   const removeFilterButton = () => {
     if (currentFilter.length)
       return (
-        <button onClick={() => dispatch(removeFilters())}>
-          "Remove Filters"
+        <button
+          className="filter_remove"
+          onClick={() => dispatch(removeFilters())}
+        >
+          Remove filters
         </button>
       );
     return "";
@@ -52,8 +76,10 @@ const Filters = () => {
     <div className="filter_container">
       <select onChange={handleInputChange} className="filter_name">
         <option value={"Order"}>ORDER BY</option>
-        <option value={"byName"}>Name</option>
-        <option value={"byRating"}>Rating</option>
+        <option value={"Rating ▲"}>Rating ▲</option>
+        <option value={"Rating ▼"}>Rating ▼</option>
+        <option value={"A-Z"}>A-Z</option>
+        <option value={"Z-A"}>Z-A</option>
       </select>
 
       <select onChange={filterByGenre} className="filter_genre">

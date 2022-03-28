@@ -7,6 +7,7 @@ import {
   GETALL,
   GETGENRES,
   GET_GAME_DETAIL,
+  ORDER,
   REMOVE_FILTERS,
 } from "../Actions/Constants";
 
@@ -14,6 +15,7 @@ const initState = {
   allVideoGames: [],
   genres: [],
   gameDetail: {},
+  order: [],
   gameQuery: [],
   filterQuery: [],
 };
@@ -39,10 +41,16 @@ function reducer(state = initState, action) {
         ...state,
         gameDetail: action.payload,
       };
+
+    case ORDER:
+      return {
+        ...state,
+        order: action.payload,
+      };
+
     case GAME_QUERY:
       return {
         ...state,
-        // allVideoGames: action.payload,
         gameQuery: action.payload,
       };
 

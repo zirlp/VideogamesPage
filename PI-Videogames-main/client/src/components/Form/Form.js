@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
 import { getGames, getGenres, addGame } from "../../Actions/index.js";
 import Navbar from "../Navbar/Navbar";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export function validate(input) {
   let errors = {};
@@ -162,107 +162,132 @@ const Form = () => {
     navigate("/home");
   };
 
+  let validateInput = "form_input";
+  // if (!errors.name) validateInput = "form_input";
+  // if (errors.name) validateInput = "invalid_input";
+
   return (
     <div>
-      <Navbar />
-      <form onSubmit={handleSubmit}>
-        <div className="name">
-          <label>Game name:</label>
-          <input
-            className={errors.name && "danger"}
-            type="text"
-            name="name"
-            onChange={handleInputChange}
-            value={input.name}
-          />
-          {errors.name && <p className="danger">{errors.name}</p>}
-        </div>
-        <div className="description">
-          <label>Description:</label>
-          <input
-            className={errors.descripton && "danger"}
-            type="text"
-            name="description"
-            onChange={handleInputChange}
-            value={input.descripton}
-          />
-          {errors.description && <p className="danger">{errors.description}</p>}
-        </div>
-        <div className="released">
-          <label>Release date:</label>
-          <input
-            className={errors.released && "danger"}
-            type="text"
-            name="released"
-            placeholder="yyyy-mm-dd"
-            onChange={handleInputChange}
-            value={input.released}
-          />
-          {errors.released && <p className="danger">{errors.released}</p>}
-        </div>
-        <div className="rating">
-          <label>Rating:</label>
-          <input
-            className={errors.rating && "danger"}
-            type="text"
-            name="rating"
-            placeholder="from 0 to 5"
-            onChange={handleInputChange}
-            value={input.rating}
-          />
-          {errors.rating && <p className="danger">{errors.rating}</p>}
-        </div>
-        <div className="rating">
-          <label>Image Url:</label>
-          <input
-            className={errors.image && "danger"}
-            type="text"
-            name="image"
-            placeholder="url"
-            onChange={handleInputChange}
-            value={input.image}
-          />
-          {errors.image && <p className="danger">{errors.image}</p>}
-        </div>
-        <div>
-          <label>Select genre:</label>
-          <select onChange={handleGenres}>
-            {genres.map((genres) => (
-              <option value={genres.name} key={genres.name}>
-                {genres.name}
-              </option>
+      <Link to={"/home"}>
+        <img
+          className="detail_arrow"
+          src="http://pixelartmaker-data-78746291193.nyc3.digitaloceanspaces.com/image/c0770286e6189a4.png"
+          alt=""
+        ></img>
+      </Link>
+      <div className="form_container">
+        <form onSubmit={handleSubmit} className="form">
+          <h1 className="form_title"> CREATE NEW GAME </h1>
+          <div className="input_container">
+            <label className="form_label">Game name:</label>
+            <input
+              className={validateInput}
+              type="text"
+              name="name"
+              onChange={handleInputChange}
+              value={input.name}
+            />
+            {errors.name && <p className="danger">{errors.name}</p>}
+          </div>
+          <div className="input_container">
+            <label className="form_label">Description:</label>
+            <input
+              className={validateInput}
+              type="text"
+              name="description"
+              onChange={handleInputChange}
+              value={input.descripton}
+            />
+            {errors.description && (
+              <p className="danger">{errors.description}</p>
+            )}
+          </div>
+          <div className="input_container">
+            <label className="form_label">Release date:</label>
+            <input
+              className={validateInput}
+              type="text"
+              name="released"
+              placeholder="yyyy-mm-dd"
+              onChange={handleInputChange}
+              value={input.released}
+            />
+            {errors.released && <p className="danger">{errors.released}</p>}
+          </div>
+          <div className="input_container">
+            <label className="form_label">Rating:</label>
+            <input
+              className={validateInput}
+              type="text"
+              name="rating"
+              placeholder="from 0 to 5"
+              onChange={handleInputChange}
+              value={input.rating}
+            />
+            {errors.rating && <p className="danger">{errors.rating}</p>}
+          </div>
+          <div className="input_container">
+            <label className="form_label">Image Url:</label>
+            <input
+              className={validateInput}
+              type="text"
+              name="image"
+              placeholder="url"
+              onChange={handleInputChange}
+              value={input.image}
+            />
+            {errors.image && <p className="danger">{errors.image}</p>}
+          </div>
+          <div className="select_container">
+            <label className="select_label">Select genre:</label>
+            <select onChange={handleGenres} className="select_form">
+              {genres.map((genres) => (
+                <option value={genres.name} key={genres.name}>
+                  {genres.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="select_button_container" name={"genres"}>
+            {input.genres.map((genre) => (
+              <button
+                onClick={deleteGenre}
+                name={genre}
+                key={genre}
+                className="select_button"
+              >
+                {genre}
+              </button>
             ))}
-          </select>
-        </div>
-        <div className={errors.genres && "danger"} name={"genres"}>
-          {input.genres.map((genre) => (
-            <button onClick={deleteGenre} name={genre} key={genre}>
-              {genre}
-            </button>
-          ))}
-          {errors.genres && <p className="danger">{errors.genres}</p>}
-        </div>
-        <div>
-          <label>Select platform:</label>
-          <select onChange={handlePlatforms}>
-            {allPlatforms.map((platform) => (
-              <option value={platform} key={platform}>
+            {errors.genres && <p className="danger">{errors.genres}</p>}
+          </div>
+          <div className="select_container">
+            <label className="select_label">Select platform:</label>
+            <select onChange={handlePlatforms} className="select_form">
+              {allPlatforms.map((platform) => (
+                <option value={platform} key={platform}>
+                  {platform}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="select_button_container" name={"platforms"}>
+            {input.platforms.map((platform) => (
+              <button
+                onClick={deletePlatform}
+                name={platform}
+                key={platform}
+                className="select_button"
+              >
                 {platform}
-              </option>
+              </button>
             ))}
-          </select>
-        </div>
-        <div className={errors.platforms && "danger"} name={"platforms"}>
-          {input.platforms.map((platform) => (
-            <button onClick={deletePlatform} name={platform} key={platform}>
-              {platform}
-            </button>
-          ))}
-          {errors.platforms && <p className="danger">{errors.platforms}</p>}
-        </div>
+            {errors.platforms && <p className="danger">{errors.platforms}</p>}
+          </div>
 
-        <input type={"submit"} />
-      </form>
+          <input type={"submit"} className="form_button" />
+        </form>
+      </div>
     </div>
   );
 };
