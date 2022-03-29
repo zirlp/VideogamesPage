@@ -48,6 +48,7 @@ a {
 
 .card_name {
   padding-bottom: 1vh;
+  margin-top: 0;
 }
 
 .card_rating {
@@ -58,11 +59,14 @@ a {
   right: 0%;
   opacity: 70%;
   background-color: black;
-  padding: 1vh;
+  padding: 0.5vh;
+  padding-right: 0;
 }
 
-.card_genres {
+.card_arrow {
+  margin: 0;
 }
 
-.card_genre {
+.card_star {
+  width: 3vh;
 }

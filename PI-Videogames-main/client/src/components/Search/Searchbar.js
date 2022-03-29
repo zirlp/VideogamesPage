@@ -6,21 +6,23 @@ import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
-  const [query, setQuery] = useState("");
   const navigate = useNavigate();
+  const [query, setQuery] = useState("");
 
   const allGames = useSelector((state) => state.allVideoGames);
 
   const submitHandler = (e) => {
     e.preventDefault();
+    var filterByQuery;
 
-    const filterByQuery = allGames.filter((game) =>
-      game.name.toLowerCase().includes(query)
-    );
-    // console.log(filterByQuery);
-    !filterByQuery.length
-      ? navigate("/nope")
-      : dispatch(gameQuery(filterByQuery));
+    if (query) {
+      filterByQuery = allGames.filter((game) =>
+        game.name.toLowerCase().includes(query)
+      );
+      !filterByQuery.length
+        ? navigate("/nope")
+        : dispatch(gameQuery(filterByQuery));
+    }
     setQuery("");
   };
 

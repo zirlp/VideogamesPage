@@ -16,13 +16,14 @@ const Game = ({
     <div className="card_content">
       <Link to={`/videogames/${id}`}>
         <div className="card">
-          <h3 className="card_rating"> {rating} </h3>
+          <h3 className="card_rating">{rating}⭐</h3>
           <img
             src={`${background_image}`}
             alt={"game_img"}
             className="card_image"
           ></img>
           <div className="card_info">
+            <p className="card_arrow"> ▲ </p>
             <h3 className="card_name">{name}</h3>
             <div className="card_genres">
               {genres.map((g) => (

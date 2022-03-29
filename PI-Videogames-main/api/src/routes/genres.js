@@ -14,7 +14,7 @@ async function getGenres(req, res) {
       message: "No genres on the data base",
     });
   }
-  res.send(genres);
+  res.status(200).send(genres);
 }
 
 module.exports = router;

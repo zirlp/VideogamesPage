@@ -8,6 +8,8 @@ export function validate(input) {
   let errors = {};
   if (!input.name) {
     errors.name = "Game name is required";
+  } else if (gameExists) {
+    errors.name = "this game already exists";
   } else if (!input.description) {
     errors.description = "Game description is required";
   } else if (!input.released) {
@@ -35,6 +37,7 @@ export function validate(input) {
   }
   return errors;
 }
+let gameExists = false;
 
 const Form = () => {
   const navigate = useNavigate();
@@ -58,18 +61,23 @@ const Form = () => {
     genres: [],
   });
 
+  const [dbCheck, setdbCheck] = useState();
+
   useEffect(() => {
     dispatch(getGames());
     dispatch(getGenres());
   }, [dispatch]);
 
   useEffect(() => {
+    if (dbCheck) gameExists = true;
+    if (!dbCheck) gameExists = false;
+    setdbCheck(allGames.find((game) => game.name === input.name));
     setErrors(
       validate({
         ...input,
       })
     );
-  }, [input]);
+  }, [input, allGames, dbCheck]);
 
   //handlers --------------------------------------------------
   //guardo los géneros en el input
@@ -142,7 +150,7 @@ const Form = () => {
 
   const handleSubmit = (ok) => {
     ok.preventDefault();
-    //cómo condicionar el submit
+
     dispatch(addGame(input));
     setInput({
       name: "",
@@ -159,13 +167,13 @@ const Form = () => {
 
   const submitButton = () => {
     if (
-      input.name &&
-      input.description &&
-      input.released &&
-      input.rating &&
-      input.background_image &&
+      !errors.name &&
+      !errors.description &&
+      !errors.released &&
+      !errors.rating &&
+      !errors.background_image &&
       input.platforms.length &&
-      input.genres.length
+      !errors.genres
     )
       return (
         <button onClick={handleSubmit} className="form_button">
@@ -188,8 +196,11 @@ const Form = () => {
         <form className="form">
           <h1 className="form_title"> CREATE NEW GAME </h1>
           <div className="input_container">
-            <label className="form_label">Game name:</label>
+            <label className="form_label" htmlFor="name">
+              Game name:
+            </label>
             <input
+              id="name"
               className={"form_input"}
               type="text"
               name="name"

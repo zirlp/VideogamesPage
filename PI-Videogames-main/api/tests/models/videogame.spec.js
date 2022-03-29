@@ -29,7 +29,7 @@ describe("Videogame model", () => {
             "This is a test for Henry Individual Proyect of a Single Page Aplication (SPA), and should work.",
           released: "2022-03-28",
           rating: 3.11,
-          image:
+          background_image:
             "https://phantom-marca.unidadeditorial.es/252acdd64f48851f815c16049a789f23/resize/1320/f/jpg/assets/multimedia/imagenes/2021/04/19/16188479459744.jpg",
           genres: ["Indie", "Simulation"],
           platforms: ["PC", "macOS"],

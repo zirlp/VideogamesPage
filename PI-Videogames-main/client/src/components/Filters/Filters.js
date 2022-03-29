@@ -41,6 +41,13 @@ const Filters = () => {
         return 0;
       });
     }
+    if (e.target.value === "DB") {
+      sort = allGames.sort((a, b) => {
+        if (!Number(a.id) && Number(b.id)) return -1;
+        if (Number(a.id) && !Number(b.id)) return 1;
+        return 0;
+      });
+    }
     dispatch(orderBy(sort));
     dispatch(orderBy([]));
   };
@@ -75,7 +82,8 @@ const Filters = () => {
   return (
     <div className="filter_container">
       <select onChange={handleInputChange} className="filter_select">
-        <option value={"Order"}>ORDER BY</option>
+        <option value={"Order"}>SORT BY</option>
+        <option value={"DB"}>DB ▲</option>
         <option value={"Rating ▲"}>Rating ▲</option>
         <option value={"Rating ▼"}>Rating ▼</option>
         <option value={"A-Z"}>A-Z</option>
