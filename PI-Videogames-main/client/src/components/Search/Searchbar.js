@@ -28,7 +28,11 @@ const SearchBar = () => {
 
   const goBackButton = () => {
     if (filteredGames.length)
-      return <button onClick={handleOnClick}>"Return"</button>;
+      return (
+        <button onClick={handleOnClick} className="searchbar_back">
+          Return
+        </button>
+      );
     return "";
   };
   const handleOnClick = () => {
@@ -44,8 +48,14 @@ const SearchBar = () => {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       ></input>
-      <input type={"submit"} value="OK" className="searchbar_submit"></input>
-      <div className="searchbar_back">{goBackButton()}</div>
+
+      <input
+        src="https://github.com/zirlp/VideogamesPage/blob/main/PI-Videogames-main/client/src/Images/icono-lupa.png?raw=true"
+        type="image"
+        alt=""
+        className="searchbar_submit"
+      />
+      <div>{goBackButton()}</div>
     </form>
   );
 };

@@ -8,13 +8,13 @@ const NotFound = () => {
   const [count, setCount] = useState(10);
 
   useEffect(() => {
-    const controller = new AbortController();
-
-    setInterval(() => {
+    const intervalId = setInterval(() => {
       setCount(count - 1);
     }, 1000);
 
-    return () => controller.abort();
+    return function cleanUp() {
+      clearInterval(intervalId);
+    };
   }, [count]);
 
   if (!count) navigate("/");

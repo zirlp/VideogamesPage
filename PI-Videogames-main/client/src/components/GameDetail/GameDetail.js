@@ -1,36 +1,45 @@
 import "./Styles.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { filterQuery, getGameDetail, deleteGame } from "../../Actions/index.js";
-import Navbar from "../Navbar/Navbar";
 import { Link } from "react-router-dom";
+import Loading from "../Loading/Loading";
 
 const GameDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  const allGames = useSelector((state) => state.allVideoGames);
+  const detail = useSelector((state) => state.gameDetail);
+
+  //for some reason platforms and genres are objects :v
+  let platformsObj = detail.platforms;
+  let genresObj = detail.genres;
+
+  var platforms = [];
+  for (const prop in platformsObj) {
+    platforms.push(platformsObj[prop]);
+  }
+  var genres = [];
+  for (const prop in genresObj) {
+    genres.push(genresObj[prop]);
+  }
+  // ------------------------------------------------- :v
 
   useEffect(() => {
     dispatch(getGameDetail(id));
   }, [dispatch, id]);
 
-  const allGames = useSelector((state) => state.allVideoGames);
-
-  const detail = useSelector((state) => state.gameDetail);
-  let platformsObj = detail.platforms;
-  let genresObj = detail.genres;
-
-  //for some reason platforms and genres are objects :v
-  var platforms = [];
-  for (const prop in platformsObj) {
-    platforms.push(platformsObj[prop]);
-  }
-
-  var genres = [];
-  for (const prop in genresObj) {
-    genres.push(genresObj[prop]);
-  }
+  // if i do 2 useEffects the fetch is made just once  :), otherwise; would dispatch getGameDetail when the id changes.
+  useEffect(() => {
+    setLoading(true);
+    if (detail.id === id) {
+      setLoading(false);
+    }
+  }, [detail.id, id]);
 
   const genreOnClick = (e) => {
     const byGenre = allGames.filter((game) =>
@@ -54,16 +63,27 @@ const GameDetail = () => {
 
   const deleteButton = () => {
     if (Number(id)) return "";
-    return <button onClick={deleted}>Delete Game</button>;
+    return (
+      <button onClick={deleted} className="detail_delete">
+        Delete Game
+      </button>
+    );
   };
 
+  if (loading)
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
   return (
     <div>
       <div>
         <Link to={"/home"}>
           <img
             className="detail_arrow"
-            src="http://pixelartmaker-data-78746291193.nyc3.digitaloceanspaces.com/image/c0770286e6189a4.png"
+            src="https://github.com/zirlp/VideogamesPage/blob/main/PI-Videogames-main/client/src/Images/whiteArrow.png?raw=true"
+            alt=""
           ></img>
         </Link>
       </div>
@@ -88,7 +108,7 @@ const GameDetail = () => {
                 onClick={platformOnClick}
                 value={platform}
                 key={platform}
-                className="detail_platform"
+                className="detail_tag"
               >
                 {platform}
               </button>
@@ -103,7 +123,7 @@ const GameDetail = () => {
                 onClick={genreOnClick}
                 value={genre}
                 key={genre}
-                className="detail_genre"
+                className="detail_tag"
               >
                 {genre}
               </button>

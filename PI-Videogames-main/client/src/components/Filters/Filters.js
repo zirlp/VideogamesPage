@@ -74,7 +74,7 @@ const Filters = () => {
 
   return (
     <div className="filter_container">
-      <select onChange={handleInputChange} className="filter_name">
+      <select onChange={handleInputChange} className="filter_select">
         <option value={"Order"}>ORDER BY</option>
         <option value={"Rating ▲"}>Rating ▲</option>
         <option value={"Rating ▼"}>Rating ▼</option>
@@ -82,7 +82,7 @@ const Filters = () => {
         <option value={"Z-A"}>Z-A</option>
       </select>
 
-      <select onChange={filterByGenre} className="filter_genre">
+      <select onChange={filterByGenre} className="filter_select">
         <option value={"none"}>FILTER BY GENRE</option>
         {genres.map((genres) => (
           <option value={genres.name} key={genres.name}>
@@ -91,7 +91,7 @@ const Filters = () => {
         ))}
       </select>
 
-      <select onChange={filterByPlatform} className="filter_platform">
+      <select onChange={filterByPlatform} className="filter_select">
         <option value={"none"}>FILTER BY PLATFORM</option>
         {allPlatforms.map((platform) => (
           <option value={platform} key={platform}>

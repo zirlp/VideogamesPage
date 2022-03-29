@@ -2,7 +2,6 @@ import "./Styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
 import { getGames, getGenres, addGame } from "../../Actions/index.js";
-import Navbar from "../Navbar/Navbar";
 import { Link, useNavigate } from "react-router-dom";
 
 export function validate(input) {
@@ -22,44 +21,43 @@ export function validate(input) {
     errors.rating = "You must rate this game";
   } else if (input.rating > 5 || input.rating < 0) {
     errors.rating = "Rating must be above 0 and under 5";
-  } else if (!input.image) {
-    errors.image = "Url is invalid";
+  } else if (!input.background_image) {
+    errors.background_image = "Url is invalid";
     //prettier-ignore
   } else if (
-    !/[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi.test(
-      input.image
+    !/[-a-zA-Z0-9@:%._~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_.~#?&//=]*)?/gi.test(
+      input.background_image
     )
   ) {
-    errors.image = "Url is invalid";
+    errors.background_image = "Url is invalid";
   } else if (!input.genres.length) {
     errors.genres = "You must select at least 1 genre";
   }
-
   return errors;
 }
 
 const Form = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const genres = useSelector((state) => state.genres);
   const allGames = useSelector((state) => state.allVideoGames);
   const everyPlatformsArray = allGames.map((p) => p.platforms);
   const allPlatforms = [...new Set(everyPlatformsArray.flat())];
-  //filtro todas las plataformas por el front ya que no las necesito en la db.
+  //all platforms dont need to be db so i do the filter on front.
 
-  //seteo los errores para controlar el form
   const [errors, setErrors] = useState({});
-  //esto se mandará al back para hacer el post
+
   const [input, setInput] = useState({
     name: "",
     description: "",
     released: "",
     rating: "",
-    image: "",
+    background_image: "",
     platforms: [],
     genres: [],
   });
 
-  //dispacho getGames para acceder a los generos desde el estado.
   useEffect(() => {
     dispatch(getGames());
     dispatch(getGenres());
@@ -72,9 +70,6 @@ const Form = () => {
       })
     );
   }, [input]);
-
-  //guardo los generos en una variable
-  const genres = useSelector((state) => state.genres);
 
   //handlers --------------------------------------------------
   //guardo los géneros en el input
@@ -154,7 +149,7 @@ const Form = () => {
       description: "",
       released: "",
       rating: "",
-      image: "",
+      background_image: "",
       platforms: [],
       genres: [],
     });
@@ -162,26 +157,40 @@ const Form = () => {
     navigate("/home");
   };
 
-  let validateInput = "form_input";
-  // if (!errors.name) validateInput = "form_input";
-  // if (errors.name) validateInput = "invalid_input";
+  const submitButton = () => {
+    if (
+      input.name &&
+      input.description &&
+      input.released &&
+      input.rating &&
+      input.background_image &&
+      input.platforms.length &&
+      input.genres.length
+    )
+      return (
+        <button onClick={handleSubmit} className="form_button">
+          Create
+        </button>
+      );
+    return "";
+  };
 
   return (
     <div>
       <Link to={"/home"}>
         <img
           className="detail_arrow"
-          src="http://pixelartmaker-data-78746291193.nyc3.digitaloceanspaces.com/image/c0770286e6189a4.png"
+          src="https://github.com/zirlp/VideogamesPage/blob/main/PI-Videogames-main/client/src/Images/whiteArrow.png?raw=true"
           alt=""
         ></img>
       </Link>
       <div className="form_container">
-        <form onSubmit={handleSubmit} className="form">
+        <form className="form">
           <h1 className="form_title"> CREATE NEW GAME </h1>
           <div className="input_container">
             <label className="form_label">Game name:</label>
             <input
-              className={validateInput}
+              className={"form_input"}
               type="text"
               name="name"
               onChange={handleInputChange}
@@ -192,7 +201,7 @@ const Form = () => {
           <div className="input_container">
             <label className="form_label">Description:</label>
             <input
-              className={validateInput}
+              className={"form_input"}
               type="text"
               name="description"
               onChange={handleInputChange}
@@ -205,7 +214,7 @@ const Form = () => {
           <div className="input_container">
             <label className="form_label">Release date:</label>
             <input
-              className={validateInput}
+              className={"form_input"}
               type="text"
               name="released"
               placeholder="yyyy-mm-dd"
@@ -217,7 +226,7 @@ const Form = () => {
           <div className="input_container">
             <label className="form_label">Rating:</label>
             <input
-              className={validateInput}
+              className={"form_input"}
               type="text"
               name="rating"
               placeholder="from 0 to 5"
@@ -229,14 +238,16 @@ const Form = () => {
           <div className="input_container">
             <label className="form_label">Image Url:</label>
             <input
-              className={validateInput}
+              className={"form_input"}
               type="text"
-              name="image"
+              name="background_image"
               placeholder="url"
               onChange={handleInputChange}
-              value={input.image}
+              value={input.background_image}
             />
-            {errors.image && <p className="danger">{errors.image}</p>}
+            {errors.background_image && (
+              <p className="danger">{errors.background_image}</p>
+            )}
           </div>
           <div className="select_container">
             <label className="select_label">Select genre:</label>
@@ -284,9 +295,9 @@ const Form = () => {
             ))}
             {errors.platforms && <p className="danger">{errors.platforms}</p>}
           </div>
-
-          <input type={"submit"} className="form_button" />
+          <div>{submitButton()}</div>
         </form>
+        {/* {console.log(errors)} */}
       </div>
     </div>
   );

@@ -83,7 +83,7 @@ async function getGamesFromApi() {
             rating: game.rating,
             platforms: game.platforms.map((platform) => platform.platform.name),
             genres: game.genres.map((genre) => genre.name),
-            image: game.background_image,
+            background_image: game.background_image,
           });
         })
       );

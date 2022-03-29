@@ -2,11 +2,12 @@
   display: flex;
   justify-content: center;
   font-family: undertale;
+  height: 80vh;
 }
 
 .form {
   position: absolute;
-  top: 10%;
+  top: 6%;
 }
 
 .form_title {
@@ -18,14 +19,6 @@
   font-size: 1.3rem;
   color: red;
 }
-
-/* .invalid_input {
-  font-family: undertale;
-  background-color: black;
-  font-size: 1.5rem;
-  color: white;
-  border: 0.2rem solid red;
-} */
 
 .input_container {
   padding: 1rem;
@@ -64,6 +57,14 @@
   font-family: undertale;
   font-size: 1.5rem;
   margin: 1vh;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.select_form:hover {
+  background-color: white;
+  color: black;
+  border: 2px solid grey;
 }
 
 .select_label {
@@ -78,6 +79,12 @@
   border: 0.2rem solid black;
   background-color: white;
   /* padding: 0.5rem; */
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.select_button:hover {
+  transform: translateY(-5px);
+  background-color: #ff4e00;
 }
 
 .form_button {
@@ -87,4 +94,13 @@
   border: 0.2rem solid black;
   background-color: #ff4e00;
   padding: 0.5rem;
+  cursor: pointer;
+  margin-top: 3vh;
+  position: absolute;
+  left: 40%;
+  transition: 0.3s ease;
+}
+
+.form_button:hover {
+  background-color: white;
 }

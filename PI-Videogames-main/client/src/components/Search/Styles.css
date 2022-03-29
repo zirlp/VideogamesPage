@@ -18,5 +18,24 @@
   padding: 0.3rem;
 }
 
+.searchbar_submit {
+  width: 3vh;
+  object-fit: contain;
+}
+
 .searchbar_back {
+  font-family: undertale;
+  font-size: 1.2rem;
+  color: black;
+  background-color: white;
+  height: 3rem;
+  border: 3px solid rgb(82, 82, 82);
+  padding: 0.3rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.searchbar_back:hover {
+  background-color: #ff4e00;
+  border: 3px solid black;
 }

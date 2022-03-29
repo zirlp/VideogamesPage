@@ -33,9 +33,11 @@ module.exports = (sequelize) => {
         type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: false,
       },
-      image: {
+      background_image: {
         type: DataTypes.STRING(2000),
         allowNull: false,
+        // defaultValue:
+        //   "https://dbdzm869oupei.cloudfront.net/img/sticker/preview/7470.png",
       },
     },
     { timestamps: false }

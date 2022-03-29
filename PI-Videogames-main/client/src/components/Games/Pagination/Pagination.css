@@ -6,14 +6,14 @@
 }
 
 .page-link {
-  /* display: inline-block; */
-  color: white;
-  font-weight: 900;
-  font-size: 1.5vh;
   height: 3vh;
   width: 3vh;
   margin: 5px;
-  background-color: gray;
+  color: black;
+  font-family: undertale;
+  font-size: 1.5rem;
+  border: 0.2rem solid black;
+  background-color: white;
   border-radius: 3px;
   cursor: pointer;
   transition: 0.4s ease;
@@ -21,6 +21,19 @@
 
 .page-link:hover {
   transform: translateY(-5px);
+  background-color: #ff4e00;
+}
+
+.current_page {
+  height: 3vh;
+  width: 3vh;
+  margin: 5px;
+  color: black;
+  font-family: undertale;
+  font-size: 1.5rem;
+  border: 0.2rem solid black;
+  background-color: #ff4e00;
+  border-radius: 3px;
 }
 
 ul {

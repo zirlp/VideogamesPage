@@ -7,7 +7,7 @@ const LandingPage = () => {
       <Link to={"/home"}>
         <img
           className="start"
-          src="https://i.makeagif.com/media/5-02-2020/ycAGy7.gif"
+          src="https://github.com/zirlp/VideogamesPage/blob/main/PI-Videogames-main/client/src/Images/press-start.gif?raw=true"
           alt=""
         ></img>
       </Link>

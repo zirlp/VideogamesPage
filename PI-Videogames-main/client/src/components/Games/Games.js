@@ -12,7 +12,7 @@ const Games = () => {
   var games = useSelector((state) => state.allVideoGames);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [gamesPerPage] = useState(15);
+  const gamesPerPage = 15;
 
   //get current games (by currentPage)
   const indexOfLastGame = currentPage * gamesPerPage;
@@ -21,6 +21,7 @@ const Games = () => {
   if (currentOrder.length) games = currentOrder;
   if (filterQuery.length) games = filterQuery;
   else if (query.length) games = query;
+
   const currentGames = games.slice(indexOfFirstGame, indexOfLastGame);
 
   //change page
@@ -37,7 +38,7 @@ const Games = () => {
             key={e.id}
             id={e.id}
             name={e.name}
-            image={e.image}
+            background_image={e.background_image}
             rating={e.rating}
             genres={e.genres}
           ></Game>
@@ -48,6 +49,7 @@ const Games = () => {
         gamesPerPage={gamesPerPage}
         totalGames={games.length}
         paginate={paginate}
+        currentPage={currentPage}
       />
     </div>
   );

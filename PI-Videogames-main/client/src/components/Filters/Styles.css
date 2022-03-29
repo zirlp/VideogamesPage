@@ -6,7 +6,7 @@
   width: 100%;
 }
 
-.filter_name {
+.filter_select {
   border: 2px solid #ff4e00;
   background-color: black;
   height: 2.2rem;
@@ -14,26 +14,14 @@
   font-family: undertale;
   font-size: 1.5rem;
   margin: 1vh;
+  cursor: pointer;
+  transition: 0.3s ease;
 }
 
-.filter_genre {
-  border: 2px solid #ff4e00;
-  background-color: black;
-  height: 2.2rem;
-  color: #ff4e00;
-  font-family: undertale;
-  font-size: 1.5rem;
-  margin: 1vh;
-}
-
-.filter_platform {
-  border: 2px solid #ff4e00;
-  background-color: black;
-  height: 2.2rem;
-  color: #ff4e00;
-  font-family: undertale;
-  font-size: 1.5rem;
-  margin: 1vh;
+.filter_select:hover {
+  background-color: white;
+  color: black;
+  border: 2px solid grey;
 }
 
 .filter_remove {
@@ -44,4 +32,12 @@
   font-family: undertale;
   font-size: 1.5rem;
   margin: 1vh;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.filter_remove:hover {
+  background-color: white;
+  color: black;
+  border: 2px solid grey;
 }

@@ -62,10 +62,17 @@ async function getGameById(req, res) {
 
 async function createGame(req, res) {
   // works only for db data.
-  const { name, description, released, rating, platforms, image, genres } =
-    req.body;
+  const {
+    name,
+    description,
+    released,
+    rating,
+    platforms,
+    background_image,
+    genres,
+  } = req.body;
   //prettier-ignore
-  if (!name || !description || !released || !rating || !platforms || !image || !genres ) {
+  if (!name || !description || !released || !rating || !background_image || !platforms  || !genres ) {   // 
     return res.status(406).send({
       message: "All spaces must be specified.",
     });
@@ -88,7 +95,7 @@ async function createGame(req, res) {
       released,
       rating,
       platforms,
-      image,
+      background_image,
     }).then((new_game) => {
       Genre.findAll({ where: { name: genres } }).then((genre) => {
         new_game.addGenre(genre);
@@ -130,7 +137,7 @@ async function getGamesFromDb() {
   });
   return createdGames.map((game) => {
     //prettier-ignore
-    const { id, name, description, released, rating, platforms, image, genres } = game;
+    const { id, name, description, released, rating, platforms, background_image, genres } = game;
     return {
       id,
       name,
@@ -138,7 +145,7 @@ async function getGamesFromDb() {
       released,
       rating,
       platforms,
-      image,
+      background_image,
       genres: genres.map((g) => g.name),
     };
   });

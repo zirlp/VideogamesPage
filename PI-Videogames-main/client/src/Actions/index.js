@@ -59,7 +59,7 @@ export function getGameDetail(id) {
       );
       return dispatch({ type: GET_GAME_DETAIL, payload: requestDetail.data });
     } catch (error) {
-      console.log(error.message);
+      window.location.replace("/nope");
     }
   };
 }

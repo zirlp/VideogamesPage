@@ -9,18 +9,21 @@ import Form from "./components/Form/Form.js";
 import GameDetail from "./components/GameDetail/GameDetail";
 import NotFound from "./components/NotFound/NotFound.js";
 
-const App = () => (
-  <Router>
-    <main>
-      <Routes>
-        <Route exact path="/" element={<LandingPage />} />
-        <Route exact path="/home" element={<Home />} />
-        <Route exact path="/videogames/add" element={<Form />} />
-        <Route exact path="/videogames/:id" element={<GameDetail />} />
-        <Route exact path="/nope" element={<NotFound />} />
-      </Routes>
-    </main>
-  </Router>
-);
+const App = () => {
+  return (
+    <Router>
+      <main>
+        <Routes>
+          <Route exact path="/" element={<LandingPage />} />
+          <Route exact path="/home" element={<Home />} />
+          <Route exact path="/videogames/add" element={<Form />} />
+          <Route exact path="/videogames/:id" element={<GameDetail />} />
+          <Route exact path="/nope" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
+    </Router>
+  );
+};
 
 export default App;

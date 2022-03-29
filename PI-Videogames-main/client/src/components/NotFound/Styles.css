@@ -21,4 +21,10 @@
   font-size: 2rem;
   border-color: rgba(255, 255, 255, 0);
   padding: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.notfound_button:hover {
+  color: #ff4e00;
 }
