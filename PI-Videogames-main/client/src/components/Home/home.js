@@ -1,7 +1,7 @@
 import "./Home.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getGames, getGenres } from "../../Actions/index.js";
+import { getGames, getGenres, getPlatforms } from "../../Actions/index.js";
 
 //components --------------------------------------
 import Games from "../Games/Games";
@@ -16,6 +16,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getGames());
+    dispatch(getPlatforms());
     dispatch(getGenres());
   }, [dispatch]);
 

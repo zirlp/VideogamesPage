@@ -6,10 +6,13 @@ import Pagination from "./Pagination/Pagination";
 import Filters from "../Filters/Filters";
 
 const Games = () => {
-  const currentOrder = useSelector((state) => state.order);
-  const query = useSelector((state) => state.gameQuery);
-  const filterQuery = useSelector((state) => state.filterQuery);
-  var games = useSelector((state) => state.allVideoGames);
+  const state = useSelector((state) => state);
+  var allGames = useSelector((state) => state.allVideoGames);
+
+  if (state.order.length) allGames = state.order;
+
+  if (state.filterQuery.length) allGames = state.filterQuery;
+  else if (state.gameQuery.length) allGames = state.gameQuery;
 
   const [currentPage, setCurrentPage] = useState(1);
   const gamesPerPage = 15;
@@ -18,11 +21,7 @@ const Games = () => {
   const indexOfLastGame = currentPage * gamesPerPage;
   const indexOfFirstGame = indexOfLastGame - gamesPerPage;
 
-  if (currentOrder.length) games = currentOrder;
-  if (filterQuery.length) games = filterQuery;
-  else if (query.length) games = query;
-
-  const currentGames = games.slice(indexOfFirstGame, indexOfLastGame);
+  const currentGames = allGames.slice(indexOfFirstGame, indexOfLastGame);
 
   //change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -47,7 +46,7 @@ const Games = () => {
 
       <Pagination
         gamesPerPage={gamesPerPage}
-        totalGames={games.length}
+        totalGames={allGames.length}
         paginate={paginate}
         currentPage={currentPage}
       />

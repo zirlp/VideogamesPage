@@ -6,21 +6,29 @@ import { filterQuery, orderBy, removeFilters } from "../../Actions";
 const Filters = () => {
   const dispatch = useDispatch();
 
-  const currentOrder = useSelector((state) => state.order);
-  const currentFilter = useSelector((state) => state.filterQuery);
-  const currentQuery = useSelector((state) => state.gameQuery);
-  const genres = useSelector((state) => state.genres);
+  const state = useSelector((state) => state);
   var allGames = useSelector((state) => state.allVideoGames);
 
-  if (currentOrder.length) allGames = currentOrder;
-  else if (currentFilter.length) allGames = currentFilter;
-  else if (currentQuery.length) allGames = currentQuery;
+  if (state.filterQuery.length) allGames = state.filterQuery;
+  else if (state.gameQuery.length) allGames = state.gameQuery;
 
-  const allPlatformsArray = allGames.map((p) => p.platforms);
-  const allPlatforms = [...new Set(allPlatformsArray.flat())];
+  const filterBy = (type) => {
+    let filter;
+    if (state.platforms.find((a) => a.name === type.target.value)) {
+      filter = allGames.filter((game) =>
+        game.platforms.includes(type.target.value)
+      );
+    } else {
+      filter = allGames.filter((game) =>
+        game.genres.includes(type.target.value)
+      );
+    }
+    dispatch(filterQuery(filter));
+  };
 
   const handleInputChange = (e) => {
     var sort = [];
+
     if (e.target.value === "Rating ▲") {
       sort = allGames.sort((a, b) => b.rating - a.rating);
     }
@@ -52,22 +60,8 @@ const Filters = () => {
     dispatch(orderBy([]));
   };
 
-  const filterByPlatform = (plat) => {
-    const byPlatform = allGames.filter((game) =>
-      game.platforms.includes(plat.target.value)
-    );
-    dispatch(filterQuery(byPlatform));
-  };
-
-  const filterByGenre = (plat) => {
-    const byGenre = allGames.filter((game) =>
-      game.genres.includes(plat.target.value)
-    );
-    dispatch(filterQuery(byGenre));
-  };
-
   const removeFilterButton = () => {
-    if (currentFilter.length)
+    if (state.filterQuery.length)
       return (
         <button
           className="filter_remove"
@@ -82,7 +76,9 @@ const Filters = () => {
   return (
     <div className="filter_container">
       <select onChange={handleInputChange} className="filter_select">
-        <option value={"Order"}>SORT BY</option>
+        <option value="" disabled selected hidden>
+          SORT BY
+        </option>
         <option value={"DB"}>DB ▲</option>
         <option value={"Rating ▲"}>Rating ▲</option>
         <option value={"Rating ▼"}>Rating ▼</option>
@@ -90,20 +86,24 @@ const Filters = () => {
         <option value={"Z-A"}>Z-A</option>
       </select>
 
-      <select onChange={filterByGenre} className="filter_select">
-        <option value={"none"}>FILTER BY GENRE</option>
-        {genres.map((genres) => (
+      <select onChange={filterBy} className="filter_select">
+        <option value="" disabled selected hidden>
+          FILTER BY GENRE
+        </option>
+        {state.genres.map((genres) => (
           <option value={genres.name} key={genres.name}>
             {genres.name}
           </option>
         ))}
       </select>
 
-      <select onChange={filterByPlatform} className="filter_select">
-        <option value={"none"}>FILTER BY PLATFORM</option>
-        {allPlatforms.map((platform) => (
-          <option value={platform} key={platform}>
-            {platform}
+      <select onChange={filterBy} className="filter_select">
+        <option value="" disabled selected hidden>
+          FILTER BY PLATFORM
+        </option>
+        {state.platforms.map((platform) => (
+          <option value={platform.name} key={platform.name}>
+            {platform.name}
           </option>
         ))}
       </select>
@@ -114,3 +114,8 @@ const Filters = () => {
 };
 
 export default Filters;
+
+// const allPlatformsArray = allGames.map((p) => p.platforms);
+// const allPlatforms = [...new Set(allPlatformsArray.flat())];
+
+// dispatch(filterQuery(type.target.value));

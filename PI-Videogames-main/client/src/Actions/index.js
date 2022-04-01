@@ -1,28 +1,34 @@
 import {
   GET_GAME_DETAIL,
-  GETALL,
-  GETGENRES,
+  GET_ALL,
+  GET_GENRES,
   GAME_QUERY,
   CLEAN_QUERY,
   FILTER_QUERY,
   REMOVE_FILTERS,
   DELETE_GAME,
   ORDER,
+  GET_PLATFORMS,
+  RESET,
 } from "./Constants";
 import axios from "axios";
-
-//importar info de axios (de la api)
 
 export function getGames() {
   return async function (dispatch) {
     let request = await axios.get("http://127.0.0.1:3001/videogames");
     // const allGames = request.data;
     try {
-      return dispatch({ type: GETALL, payload: request.data });
+      return dispatch({ type: GET_ALL, payload: request.data });
     } catch (error) {
       console.log(error.message);
     }
   };
+
+  // return new Promise((resolve, reject) => {
+  //   let request = axios.get("http://127.0.0.1:3001/videogames");
+  //   // const allGames = request.data;
+  //   resolve({ type: GET_ALL, payload: request.data });
+  // });
 }
 
 export function getGenres() {
@@ -30,7 +36,7 @@ export function getGenres() {
     let requestGenres = await axios.get("http://127.0.0.1:3001/genres");
     // const allGenres = requestGenres.data;
     try {
-      return dispatch({ type: GETGENRES, payload: requestGenres.data });
+      return dispatch({ type: GET_GENRES, payload: requestGenres.data });
     } catch (error) {
       console.log(error.message);
     }
@@ -117,5 +123,32 @@ export function deleteGame(id) {
     } catch (error) {
       console.log(error.message);
     }
+  };
+}
+
+export function getPlatforms() {
+  return async (dispatch) => {
+    try {
+      const platforms = await axios.get(`http://127.0.0.1:3001/platforms`);
+      return dispatch({ type: GET_PLATFORMS, payload: platforms.data });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+}
+
+export function resetState() {
+  return (dispatch) => {
+    return dispatch({
+      type: RESET,
+      payload: {
+        allVideoGames: [],
+        genres: [],
+        gameDetail: {},
+        order: [],
+        gameQuery: [],
+        filterQuery: [],
+      },
+    });
   };
 }

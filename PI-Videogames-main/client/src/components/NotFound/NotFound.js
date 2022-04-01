@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./Styles.css";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { resetState } from "../../Actions";
 
 const NotFound = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [count, setCount] = useState(10);
@@ -17,7 +20,10 @@ const NotFound = () => {
     };
   }, [count]);
 
-  if (!count) navigate("/");
+  if (!count) {
+    navigate("/");
+    dispatch(resetState());
+  }
 
   return (
     <div className="notfound_container">

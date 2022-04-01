@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 60vh;
+  min-height: 60vh;
   font-family: undertale;
   font-size: 1.5rem;
   background-color: black;

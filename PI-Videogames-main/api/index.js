@@ -19,9 +19,9 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require("./src/app.js");
 const { conn } = require("./src/db.js");
-const { loadGenresOnDb } = require("./Controllers/api_controllers.js");
+const { loadGenresOnDb } = require("./src/routes/Controllers/api_controllers");
 
-//cargo a la base de datos los géneros de los 100 juegos traidos por la api
+//this loads the db-genres before any render on the screen :)
 loadGenresOnDb();
 
 // Syncing all the models at once.

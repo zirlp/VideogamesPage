@@ -1,7 +1,7 @@
 import "./Styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
-import { getGames, getGenres, addGame } from "../../Actions/index.js";
+import { addGame } from "../../Actions/index.js";
 import { Link, useNavigate } from "react-router-dom";
 
 export function validate(input) {
@@ -34,6 +34,8 @@ export function validate(input) {
     errors.background_image = "Url is invalid";
   } else if (!input.genres.length) {
     errors.genres = "You must select at least 1 genre";
+  } else if (!input.platforms.length) {
+    errors.platforms = "You must select at least 1 platform";
   }
   return errors;
 }
@@ -45,9 +47,7 @@ const Form = () => {
 
   const genres = useSelector((state) => state.genres);
   const allGames = useSelector((state) => state.allVideoGames);
-  const everyPlatformsArray = allGames.map((p) => p.platforms);
-  const allPlatforms = [...new Set(everyPlatformsArray.flat())];
-  //all platforms dont need to be db so i do the filter on front.
+  const allPlatforms = useSelector((state) => state.platforms);
 
   const [errors, setErrors] = useState({});
 
@@ -61,23 +61,18 @@ const Form = () => {
     genres: [],
   });
 
-  const [dbCheck, setdbCheck] = useState();
+  const [check, setcheck] = useState();
 
   useEffect(() => {
-    dispatch(getGames());
-    dispatch(getGenres());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (dbCheck) gameExists = true;
-    if (!dbCheck) gameExists = false;
-    setdbCheck(allGames.find((game) => game.name === input.name));
+    if (check) gameExists = true;
+    if (!check) gameExists = false;
+    setcheck(allGames.find((game) => game.name === input.name));
     setErrors(
       validate({
         ...input,
       })
     );
-  }, [input, allGames, dbCheck]);
+  }, [input, allGames, check]);
 
   //handlers --------------------------------------------------
   //guardo los géneros en el input
@@ -172,7 +167,7 @@ const Form = () => {
       !errors.released &&
       !errors.rating &&
       !errors.background_image &&
-      input.platforms.length &&
+      !errors.platforms &&
       !errors.genres
     )
       return (
@@ -263,6 +258,9 @@ const Form = () => {
           <div className="select_container">
             <label className="select_label">Select genre:</label>
             <select onChange={handleGenres} className="select_form">
+              <option value="" disabled selected hidden>
+                Genres
+              </option>
               {genres.map((genres) => (
                 <option value={genres.name} key={genres.name}>
                   {genres.name}
@@ -285,10 +283,14 @@ const Form = () => {
           </div>
           <div className="select_container">
             <label className="select_label">Select platform:</label>
+
             <select onChange={handlePlatforms} className="select_form">
+              <option value="" disabled selected hidden>
+                Platforms
+              </option>
               {allPlatforms.map((platform) => (
-                <option value={platform} key={platform}>
-                  {platform}
+                <option value={platform.name} key={platform.name}>
+                  {platform.name}
                 </option>
               ))}
             </select>
