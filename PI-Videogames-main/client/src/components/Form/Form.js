@@ -257,8 +257,12 @@ const Form = () => {
           </div>
           <div className="select_container">
             <label className="select_label">Select genre:</label>
-            <select onChange={handleGenres} className="select_form">
-              <option value="" disabled selected hidden>
+            <select
+              onChange={handleGenres}
+              className="select_form"
+              defaultValue={"gen"}
+            >
+              <option value="gen" disabled hidden>
                 Genres
               </option>
               {genres.map((genres) => (
@@ -283,9 +287,12 @@ const Form = () => {
           </div>
           <div className="select_container">
             <label className="select_label">Select platform:</label>
-
-            <select onChange={handlePlatforms} className="select_form">
-              <option value="" disabled selected hidden>
+            <select
+              onChange={handlePlatforms}
+              className="select_form"
+              defaultValue={"plat"}
+            >
+              <option value="plat" disabled hidden>
                 Platforms
               </option>
               {allPlatforms.map((platform) => (

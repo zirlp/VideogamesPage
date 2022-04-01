@@ -16,19 +16,12 @@ import axios from "axios";
 export function getGames() {
   return async function (dispatch) {
     let request = await axios.get("http://127.0.0.1:3001/videogames");
-    // const allGames = request.data;
     try {
       return dispatch({ type: GET_ALL, payload: request.data });
     } catch (error) {
       console.log(error.message);
     }
   };
-
-  // return new Promise((resolve, reject) => {
-  //   let request = axios.get("http://127.0.0.1:3001/videogames");
-  //   // const allGames = request.data;
-  //   resolve({ type: GET_ALL, payload: request.data });
-  // });
 }
 
 export function getGenres() {

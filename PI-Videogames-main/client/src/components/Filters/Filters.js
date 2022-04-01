@@ -75,8 +75,12 @@ const Filters = () => {
 
   return (
     <div className="filter_container">
-      <select onChange={handleInputChange} className="filter_select">
-        <option value="" disabled selected hidden>
+      <select
+        onChange={handleInputChange}
+        className="filter_select"
+        defaultValue={"sort"}
+      >
+        <option value="sort" disabled hidden>
           SORT BY
         </option>
         <option value={"DB"}>DB ▲</option>
@@ -86,8 +90,12 @@ const Filters = () => {
         <option value={"Z-A"}>Z-A</option>
       </select>
 
-      <select onChange={filterBy} className="filter_select">
-        <option value="" disabled selected hidden>
+      <select
+        onChange={filterBy}
+        className="filter_select"
+        defaultValue={"gen"}
+      >
+        <option value="gen" disabled hidden>
           FILTER BY GENRE
         </option>
         {state.genres.map((genres) => (
@@ -97,8 +105,12 @@ const Filters = () => {
         ))}
       </select>
 
-      <select onChange={filterBy} className="filter_select">
-        <option value="" disabled selected hidden>
+      <select
+        onChange={filterBy}
+        className="filter_select"
+        defaultValue={"plat"}
+      >
+        <option value="plat" disabled hidden>
           FILTER BY PLATFORM
         </option>
         {state.platforms.map((platform) => (

@@ -17,6 +17,7 @@ test("Should return initState", () => {
     order: [],
     gameQuery: [],
     filterQuery: [],
+    platforms: [],
   });
 });
 

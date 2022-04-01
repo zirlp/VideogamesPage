@@ -17,7 +17,7 @@ const SearchBar = () => {
 
     if (query) {
       filterByQuery = allGames.filter((game) =>
-        game.name.toLowerCase().includes(query)
+        game.name.toLowerCase().includes(query.toLowerCase())
       );
       !filterByQuery.length
         ? navigate("/nope")
